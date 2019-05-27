@@ -16,13 +16,8 @@
  */
 import * as tf from '@tensorflow/tfjs';
 
-const CONTROLS = ['up', 'down', 'left', 'right'];
-const CONTROL_CODES = [38, 40, 37, 39];
-
-export function init() {
-  document.getElementById('controller').style.display = '';
-  statusElement.style.display = 'none';
-}
+const CONTROLS = ['_1','_2',"_3", "_4", "_5"];
+const totals = [0, 0, 0, 0, 0];
 
 const trainStatusElement = document.getElementById('train-status');
 
@@ -38,15 +33,20 @@ export const getEpochs = () => +epochsElement.value;
 
 const denseUnitsElement = document.getElementById('dense-units');
 export const getDenseUnits = () => +denseUnitsElement.value;
+
 const statusElement = document.getElementById('status');
 
-export function startPacman() {
-  google.pacman.startGameplay();
-}
+// export function startPacman() {
+//   google.pacman.startGameplay();
+// }
 
 export function predictClass(classId) {
-  google.pacman.keyPressed(CONTROL_CODES[classId]);
-  document.body.setAttribute('data-active', CONTROLS[classId]);
+    // ***** do somethig with prediction
+
+    // indicate which item has been predicted
+    document.body.setAttribute('data-active', CONTROLS[classId]);
+
+    showPrediction(classId);
 }
 
 export function isPredicting() {
@@ -54,6 +54,7 @@ export function isPredicting() {
 }
 export function donePredicting() {
   statusElement.style.visibility = 'hidden';
+
 }
 export function trainStatus(status) {
   trainStatusElement.innerText = status;
@@ -64,17 +65,18 @@ export function setExampleHandler(handler) {
   addExampleHandler = handler;
 }
 let mouseDown = false;
-const totals = [0, 0, 0, 0];
 
-const upButton = document.getElementById('up');
-const downButton = document.getElementById('down');
-const leftButton = document.getElementById('left');
-const rightButton = document.getElementById('right');
+// show current prediction
+const currentPrediction = document.getElementById('current-prediction');
+function showPrediction(prediction) {
+    currentPrediction.innerText = CONTROLS[prediction];
+}
 
 const thumbDisplayed = {};
 
 async function handler(label) {
   mouseDown = true;
+
   const className = CONTROLS[label];
   const button = document.getElementById(className);
   const total = document.getElementById(className + '-total');
@@ -87,6 +89,15 @@ async function handler(label) {
   document.body.removeAttribute('data-active');
 }
 
+
+const upButton = document.getElementById('_1');
+const downButton = document.getElementById('_2');
+const leftButton = document.getElementById('_3');
+const rightButton = document.getElementById('_4');
+const coolButton = document.getElementById('_5');
+
+const btnArray = [upButton,downButton,leftButton,rightButton,coolButton];
+
 upButton.addEventListener('mousedown', () => handler(0));
 upButton.addEventListener('mouseup', () => mouseDown = false);
 
@@ -98,6 +109,9 @@ leftButton.addEventListener('mouseup', () => mouseDown = false);
 
 rightButton.addEventListener('mousedown', () => handler(3));
 rightButton.addEventListener('mouseup', () => mouseDown = false);
+
+coolButton.addEventListener('mousedown', () => handler(4));
+coolButton.addEventListener('mouseup', () => mouseDown = false);
 
 export function drawThumb(img, label) {
   if (thumbDisplayed[label] == null) {
@@ -119,4 +133,44 @@ export function draw(image, canvas) {
     imageData.data[j + 3] = 255;
   }
   ctx.putImageData(imageData, 0, 0);
+}
+
+//👌
+const emojiList = ["😀","😁","😂","🤣","😃","😄","😅","😆","😉","😊","😋","😎","😍","😘","😗","😙","😚","🙂","🤗","🤩","🤔","🤨","😐","😑","😶","🙄","😏","😣","😥","😮","🤐","😯","😪","😫","😴","😌","😛","😜","😝","🤤","😒","😓","😔","😕","🙃","🤑","😲","🙁","😖","😞","😟","😤","😢","😭","😦","😧","😨","😩","🤯","😬","😰","😱","😳","🤪","😵","😡","😠","🤬","😷","🤒","🤕","🤢","🤮","🤧","😇","🤠","🤥","🤫","🤭","🧐","🤓"];
+
+const emojis = document.getElementsByClassName('emoji');
+for (let i = 0; i < emojis.length; i++) {
+    emojis[i].addEventListener('mousedown', emojiPicker);
+    emojis[i].addEventListener('mouseup', () => mouseDown = false);
+}
+function emojiPicker(el){
+    
+    if(el.target.classList.contains("toggled") || el.target.parentNode.classList.contains("toggled")){
+        return;
+    }
+
+    el.target.classList.add("toggled");
+    
+    const div = document.createElement("div");
+    div.setAttribute("class","emoji-picker");
+
+    for (let i = 0; i < emojiList.length; i++) {
+        
+        const a = document.createElement("a");
+        a.setAttribute("href", "#"+emojiList[i].toString());
+        a.innerText = emojiList[i].toString();
+        div.appendChild(a);
+
+        a.addEventListener('mousedown', selectEmoji);
+        a.addEventListener('mouseup', () => mouseDown = false);
+    };
+    
+    el.target.appendChild(div);
+}
+
+function selectEmoji(el){
+    // reset toggle
+    el.target.parentNode.parentNode.classList.remove("toggled");
+
+    el.target.parentNode.parentNode.innerHTML = el.target.innerHTML;
 }
