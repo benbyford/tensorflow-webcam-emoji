@@ -17,6 +17,7 @@
 import * as tf from '@tensorflow/tfjs';
 
 const CONTROLS = ['_1','_2',"_3", "_4", "_5"];
+const PREDICTIONS = ['😀','🙁',"😳", "😜", "👌"];
 const totals = [0, 0, 0, 0, 0];
 
 const trainStatusElement = document.getElementById('train-status');
@@ -69,7 +70,7 @@ let mouseDown = false;
 // show current prediction
 const currentPrediction = document.getElementById('current-prediction');
 function showPrediction(prediction) {
-    currentPrediction.innerText = CONTROLS[prediction];
+    currentPrediction.innerText = CONTROLS[prediction] + " - " + PREDICTIONS[prediction];
 }
 
 const thumbDisplayed = {};
@@ -171,6 +172,8 @@ function emojiPicker(el){
 function selectEmoji(el){
     // reset toggle
     el.target.parentNode.parentNode.classList.remove("toggled");
+    let data = el.target.parentNode.parentNode.getAttribute("data");
+    PREDICTIONS[data-1] = el.target.innerHTML;
 
     el.target.parentNode.parentNode.innerHTML = el.target.innerHTML;
 }

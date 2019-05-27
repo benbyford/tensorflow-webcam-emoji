@@ -63,7 +63,7 @@ header b {
 
 /** Controls. **/
 .controller-panels {
-    width: var(--max-width);
+    width: 100%;
     display: flex;
     flex-direction: row;
     margin: 9px auto 0;
@@ -76,15 +76,14 @@ header b {
   flex-grow: 1;
   flex-shrink: 0;
   padding: 1em 1.5em;
+  margin: 1em;
 }
 .panel:first-child {
   background-color: #eee;
   border-radius: 10px;
 }
-.panel:last-child {
-  padding: 0 9px 0 22px;
-  width: 353px;
-}
+.panel:last-child {}
+
 .panel-row {
   display: flex;
   flex-direction: row;
@@ -161,10 +160,10 @@ header b {
   display: flex;
   justify-content: center;
   overflow: hidden;
-  width: 160px;
+  width: 250px;
 }
 #webcam {
-  height: 160px;
+  height: 200px;
   transform: scaleX(-1);
 }
 .hyper-params {
