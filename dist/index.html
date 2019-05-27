@@ -17,45 +17,34 @@ limitations under the License.
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Webcam Pacman</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-teal.min.css">
+
+  <title>Webcam to emoji</title>
+
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-  <script defer="" src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-  <link rel="stylesheet" href="/styles.8986bff4.css">
+  <link rel="stylesheet" href="styles.4376d249.css">
 </head>
 <body>
   <header>
-    Turn your <b>Web Camera</b> into a controller using a <b>Neural Network</b>.
+    <h1>Webcam to emoji</h1>
   </header>
   <div id="no-webcam">
       No webcam found. <br>
       To use this demo, use a device with a webcam.
     </div>
   <!-- Top -->
-  <div id="pacman-container">
-    <div id="logo">
-      <div id="logo-l">
-        <div id="logo-b">
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div id="status">Loading mobilenet...</div>
 
-  <div class="controller-panels" id="controller" style="display:none">
+  <div id="current-prediction">0</div>
 
+  <div class="controller-panels" id="controller">
     <div class="panel training-panel">
-
       <!-- Big buttons. -->
       <div class="panel-row big-buttons">
         <button id="train">
-          <img width="66" height="66" src="/button.0ed11507.svg">
           <span id="train-status">TRAIN MODEL</span>
         </button>
         <button id="predict">
-          <img width="66" height="66" src="/button.0ed11507.svg">
           <span>PLAY</span>
         </button>
       </div><!-- /.panel-row -->
@@ -122,16 +111,14 @@ limitations under the License.
             <video autoplay="" playsinline="" muted="" id="webcam" width="224" height="224"></video>
           </div>
         </div>
-
       </div><!-- /.panel-row -->
-
     </div><!-- /.panel -->
 
     <div class="panel joystick-panel">
 
       <div class="panel-row panel-row-top">
 
-        <div class="panel-cell panel-cell-left panel-cell-fill">
+        <div class="panel-cell panel-cell-left">
           <p class="help-text">
           Click to add the <br>
           current camera <br>
@@ -139,80 +126,81 @@ limitations under the License.
           for that control
           </p>
         </div><!-- ./panel-cell -->
-
-        <div class="panel-cell panel-cell-center">
+    </div>
+    <div class="panel-row panel-row-top">
+        <div class="panel-cell panel-cell-center _1">
           <div class="thumb-box">
             <div class="thumb-box-outer">
               <div class="thumb-box-inner">
-                <canvas class="thumb" width="224" height="224" id="up-thumb"></canvas>
+                <canvas class="thumb" width="224" height="224" id="_1-thumb"></canvas>
               </div>
-              <button class="record-button" id="up"><span>Add Sample</span></button>
+              <button class="record-button" id="_1"><span>Add Sample</span></button>
             </div>
             <p>
-              <span id="up-total">0</span> examples
+              <span id="_1-total">0</span> examples
             </p>
+            <p class="emoji">😀</p>
           </div>
         </div><!-- ./panel-cell -->
 
-        <div class="panel-cell panel-cell-right panel-cell-fill">
-        </div><!-- ./panel-cell -->
-
-      </div><!-- /.panel-row -->
-      <div class="panel-row panel-row-middle">
-        <div class="panel-cell panel-cell-left">
+        <div class="panel-cell panel-cell-left _2">
           <div class="thumb-box">
             <div class="thumb-box-outer">
               <div class="thumb-box-inner">
-                <canvas class="thumb" width="224" height="224" id="left-thumb"></canvas>
+                <canvas class="thumb" width="224" height="224" id="_2-thumb"></canvas>
               </div>
-              <button class="record-button" id="left"><span>Add Sample</span></button>
+              <button class="record-button" id="_2"><span>Add Sample</span></button>
             </div>
             <p>
-              <span id="left-total">0</span> examples
+              <span id="_2-total">0</span> examples
             </p>
+            <p class="emoji">🙁</p>
           </div>
         </div><!-- ./panel-cell -->
 
-        <div class="panel-cell panel-cell-center panel-cell-fill">
-          <img height="108" width="129" src="/joystick.1c8d13a7.png">
-        </div><!-- ./panel-cell -->
-
-        <div class="panel-cell panel-cell-right">
+        <div class="panel-cell panel-cell-right _3">
           <div class="thumb-box">
             <div class="thumb-box-outer">
               <div class="thumb-box-inner">
-                <canvas class="thumb" width="224" height="224" id="right-thumb"></canvas>
+                <canvas class="thumb" width="224" height="224" id="_3-thumb"></canvas>
               </div>
-              <button class="record-button" id="right"><span>Add Sample</span></button>
+              <button class="record-button" id="_3"><span>Add Sample</span></button>
             </div>
             <p>
-              <span id="right-total">0</span> examples
+              <span id="_3-total">0</span> examples
             </p>
+            <p class="emoji">😳</p>
           </div>
         </div><!-- ./panel-cell -->
 
-      </div><!-- /.panel-row -->
-
-      <div class="panel-row panel-row-bottom">
-
-        <div class="panel-cell panel-cell-left panel-cell-fill">
-        </div><!-- ./panel-cell -->
-
-        <div class="panel-cell panel-cell-center">
+        <div class="panel-cell panel-cell-center _4">
           <div class="thumb-box">
             <div class="thumb-box-outer">
               <div class="thumb-box-inner">
-                <canvas class="thumb" width="224" height="224" id="down-thumb"></canvas>
+                <canvas class="thumb" width="224" height="224" id="_4-thumb"></canvas>
               </div>
-              <button class="record-button" id="down"><span>Add Sample</span></button>
+              <button class="record-button" id="_4"><span>Add Sample</span></button>
             </div>
             <p>
-              <span id="down-total">0</span> examples
+              <span id="_4-total">0</span> examples
             </p>
+            <p class="emoji">😜</p>
           </div>
         </div><!-- ./panel-cell -->
 
-        <div class="panel-cell panel-cell-right panel-cell-fill">
+        <div class="panel-cell panel-cell-center _5">
+          <div class="thumb-box">
+            <div class="thumb-box-outer">
+              <div class="thumb-box-inner">
+                <canvas class="thumb" width="224" height="224" id="_5-thumb"></canvas>
+              </div>
+              <button class="record-button" id="_5"><span>Add Sample</span></button>
+            </div>
+            <p>
+              <span id="_5-total">0</span> examples
+            </p>
+            <p class="emoji">👌</p>
+          </div>
         </div><!-- ./panel-cell -->
 
       </div><!-- /.panel-row -->
@@ -222,9 +210,6 @@ limitations under the License.
 
   </div><!-- /#controller -->
 
-  <p id="copyright">PAC-MAN&trade; &copy; BANDAI NAMCO Entertainment Inc.</p>
-
-  <script src="https://storage.googleapis.com/tfjs-examples/assets/webcam-transfer-learning/pacman-google.js"></script>
-  <script src="/AI-tensorflowJS-webcam.e31bb0bc.js"></script>
+  <script src="AI-tensorflowJS-webcam.3c0a13c7.js"></script>
 </body>
 </html>
